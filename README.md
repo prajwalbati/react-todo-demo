@@ -1,3 +1,6 @@
+# todo-mern from medium article
+https://medium.com/@alphakoder/getting-started-with-the-mern-stack-4e73f34aaa28
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
