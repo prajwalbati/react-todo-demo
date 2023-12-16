@@ -4,6 +4,7 @@ import { Routes, Route, Outlet, Link } from "react-router-dom";
 import Todo from './components/Todo';
 import Register from './components/Register';
 import Login from './components/Login';
+import ActivateUser from './components/ActivateUser';
 import './App.css';
 
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
           <Route index element={<Todo />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="activate" element={<ActivateUser />} />
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>
@@ -27,7 +29,8 @@ function Layout() {
     <div className="page-content page-container" id="page-content">
         <div className="padding">
             <div className="row container d-flex justify-content-center">
-                <div className="col-md-12">
+              <div className="col-md-12">
+                  <h1 className="text-center">Todo Application</h1>
                   <Outlet />
                 </div>
             </div>
