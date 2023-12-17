@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
+import AddTodo from './AddTodo';
+
 const Todo = () => {
   const navigate = useNavigate();
+  const [errors, setErrors] = useState([]);
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
@@ -22,8 +25,6 @@ const Todo = () => {
         return;
       }
       let resJson = await response.json();
-      console.log(resJson.data);
-
       setTodos(resJson.data);
     } catch (err) {
       console.log(err);
@@ -33,8 +34,8 @@ const Todo = () => {
 
   return (
     <div className="card-body">
-        <h4 className="card-title">Awesome Todo list</h4>
-        <div className="add-items d-flex"> <input type="text" className="form-control todo-list-input" placeholder="What do you need to do today?" /> <button className="add btn btn-primary font-weight-bold todo-list-add-btn">Add</button> </div>
+      <h4 className="card-title">Awesome Todo list</h4>
+      <AddTodo fetchTodos={getTodos}></AddTodo>
         <div className="list-wrapper">
             <ul className="d-flex flex-column-reverse todo-list">
               {todos && todos.length > 0 &&

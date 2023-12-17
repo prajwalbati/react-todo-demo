@@ -32,6 +32,10 @@ const Login = () => {
                 if (response.status === 422) {
                     setErrors(resJson);
                 }
+                if (response.status === 400) {
+                    setErrors([{msg: resJson.error}]);
+                }
+                setLoading(false);
             } else {
                 let session = resJson.data;
                 window.localStorage.setItem('accesstoken', session.access_token);
