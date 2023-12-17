@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
 import AddTodo from './AddTodo';
+import TodoList from './TodoList';
 
 const Todo = () => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
   const [todos, setTodos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getTodos();
@@ -26,6 +28,7 @@ const Todo = () => {
       }
       let resJson = await response.json();
       setTodos(resJson.data);
+      setLoading(false);
     } catch (err) {
       console.log(err);
       navigate("/login");
@@ -36,23 +39,9 @@ const Todo = () => {
     <div className="card-body">
       <h4 className="card-title">Awesome Todo list</h4>
       <AddTodo fetchTodos={getTodos}></AddTodo>
-        <div className="list-wrapper">
-            <ul className="d-flex flex-column-reverse todo-list">
-              {todos && todos.length > 0 &&
-                <>
-                {todos.map(todo => {
-                  return <li key={todo._id} className={todo.is_completed?'completed':''}>
-                      <div className="form-check">
-                        <label className="form-check-label">
-                        <input className="checkbox" type="checkbox" checked={todo.is_completed ? true : false} /> {todo.title} <i className="input-helper"></i>
-                        </label>
-                      </div>
-                      <i className="remove mdi mdi-close-circle-outline"></i>
-                    </li>
-                  })}
-                </>
-              }
-            </ul>
+      <div className="list-wrapper">
+        {loading && <p>Todos loading...</p>}
+            <TodoList todos={todos} fetchTodos={getTodos}></TodoList>
         </div>
     </div>
   );
