@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from "react-router-dom";
 
 import sendRequest from '../../utils/fetchRequest';
@@ -10,11 +10,7 @@ const Todo = () => {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    getTodos();
-  });
-
-  const getTodos = async () => {
+  const getTodos = useCallback(async () => {
     try {
 
       let response = await sendRequest('/api/todos', 'GET', true);
@@ -25,7 +21,11 @@ const Todo = () => {
       console.log(err);
       navigate("/login");
     }
-  }
+  }, [navigate]);
+
+  useEffect(() => {
+    getTodos();
+  }, [getTodos]);
 
   return (
     <div className="card-body">
