@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-import sendRequest from "../utils/fetchRequest";
+import sendRequest from "../../utils/fetchRequest";
 
 const SingleTodo = ({todo, fetchTodos}) => {
     const [isCompleted, setIsCompleted] = useState(todo.is_completed);

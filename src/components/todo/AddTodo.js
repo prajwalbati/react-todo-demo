@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import sendRequest from '../utils/fetchRequest';
-import Errors from './Errors';
+import sendRequest from '../../utils/fetchRequest';
+import Errors from '../Errors';
 
 const AddTodo = ({ fetchTodos }) => {
     const [todo, setTodo] = useState('');

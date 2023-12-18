@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
-import sendRequest from '../utils/fetchRequest';
+import sendRequest from '../../utils/fetchRequest';
 import AddTodo from './AddTodo';
 import TodoList from './TodoList';
 
@@ -12,7 +12,7 @@ const Todo = () => {
 
   useEffect(() => {
     getTodos();
-  }, [])
+  });
 
   const getTodos = async () => {
     try {

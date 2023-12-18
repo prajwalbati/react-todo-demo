@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 
-import sendRequest from '../utils/fetchRequest';
-import Errors from './Errors';
+import sendRequest from '../../utils/fetchRequest';
+import Errors from '../Errors';
 
 const Login = () => {
     const navigate = useNavigate();

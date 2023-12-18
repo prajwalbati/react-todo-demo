@@ -1,10 +1,10 @@
 import React from 'react';
 import { Routes, Route, Outlet, Link } from "react-router-dom";
 
-import Todo from './components/Todo';
-import Register from './components/Register';
-import Login from './components/Login';
-import ActivateUser from './components/ActivateUser';
+import Todos from './components/todo/Todos';
+import Register from './components/auth/Register';
+import Login from './components/auth/Login';
+import ActivateUser from './components/auth/ActivateUser';
 import './App.css';
 
 const App = () => {
@@ -12,7 +12,7 @@ const App = () => {
     <div className="App">
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Todo />} />
+          <Route index element={<Todos />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="activate" element={<ActivateUser />} />
