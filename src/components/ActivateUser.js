@@ -1,38 +1,20 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 
+import sendRequest from '../utils/fetchRequest';
+import Errors from './Errors';
+
 const ActivateUser = () => {
     const navigate = useNavigate();
     const [token, setToken] = useState('');
     const [errors, setErrors] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const getErrorsList = () => {
-        if (errors && errors.length > 0) {
-            let errorElem = errors.map((err, index) => {
-                return <div className="row" key={index}>
-                    <div className="col-sm-12">
-                        <div className="alert alert-danger text-center" role="alert">
-                            {err.msg}
-                        </div>
-                    </div>
-                </div>
-            });
-            return errorElem;
-        }
-        return null;
-    }
-
     const activateUser = async (e) => {
         e.preventDefault();
         setLoading(true);
         try {
-            let response = await fetch(`https://express-todo-mway.onrender.com/api/auth/${token}/activate`, {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            });
+            let response = await sendRequest(`/api/auth/${token}/activate`, 'POST', false);
             let resJson = await response.json();
             setErrors([]);
             setLoading(false);
@@ -59,7 +41,7 @@ const ActivateUser = () => {
                 <div className="alert alert-success text-center" role="alert">
                     User created successsfully. Please check your email for token to verify your account.
                 </div>
-                {getErrorsList()}
+                <Errors errors={errors} />
                 <div className="row form-group">
                     <label className="col-sm-4 control-label">Token *</label>
                     <div className="col-sm-8">

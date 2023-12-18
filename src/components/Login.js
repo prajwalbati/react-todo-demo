@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 
+import sendRequest from '../utils/fetchRequest';
+import Errors from './Errors';
+
 const Login = () => {
     const navigate = useNavigate();
     const [credentials, setCredentials] = useState({
@@ -19,13 +22,7 @@ const Login = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            let response = await fetch('https://express-todo-mway.onrender.com/api/auth/login', {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(credentials)
-            });
+            let response = await sendRequest('/api/auth/login', 'POST', false, JSON.stringify(credentials));
             let resJson = await response.json();
             setErrors([]);
             if (!response.ok) {
@@ -50,27 +47,11 @@ const Login = () => {
         }
     };
 
-    const getErrorsList = () => {
-        if (errors && errors.length > 0) {
-            let errorElem = errors.map((err, index) => {
-                return <div className="row" key={index}>
-                    <div className="col-sm-12">
-                        <div className="alert alert-danger text-center" role="alert">
-                            {err.msg}
-                        </div>
-                    </div>
-                </div>
-            });
-            return errorElem;
-        }
-        return null;
-    }
-
     return (
         <div className="card-body">
             <h4 className="card-title">Login</h4>
             <form onSubmit={loginUser}>
-                {getErrorsList()}
+                <Errors errors={errors}></Errors>
                 <div className="row form-group">
                     <label className="col-sm-4 control-label">Email *</label>
                     <div className="col-sm-8">

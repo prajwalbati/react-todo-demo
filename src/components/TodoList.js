@@ -2,8 +2,6 @@ import React from 'react';
 import SingleTodo from './SingleTodo';
 
 const TodoList = ({ todos, fetchTodos }) => {
-
-
   return (
     <ul className="d-flex flex-column-reverse todo-list">
       {todos && todos.length > 0 &&
@@ -16,4 +14,4 @@ const TodoList = ({ todos, fetchTodos }) => {
     </ul>
   )
 }
-export default TodoList
+export default TodoList;

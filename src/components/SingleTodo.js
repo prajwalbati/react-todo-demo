@@ -1,28 +1,14 @@
 import React, {useState} from "react";
-import { useNavigate } from "react-router-dom";
+
+import sendRequest from "../utils/fetchRequest";
 
 const SingleTodo = ({todo, fetchTodos}) => {
-    const navigate = useNavigate();
     const [isCompleted, setIsCompleted] = useState(todo.is_completed);
 
     const deleteTodo = async (id) => {
         try {
-            let response = await fetch(`https://express-todo-mway.onrender.com/api/todos/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    "Authorization": `Bearer ${window.localStorage.accesstoken}`,
-                    "Content-Type": "application/json",
-                }
-            });
-            if (!response.ok) {
-                if (response.status === 401) {
-                    navigate("/login");
-                }
-                if (response.status === 400) {
-                    // setErrors([{msg: resJson.error}]);
-                }
-                return;
-            } else {
+            let response = await sendRequest(`/api/todos/${id}`, 'DELETE', true);
+            if (response.ok) {
                 fetchTodos();
             }
         } catch (err) {
@@ -32,31 +18,19 @@ const SingleTodo = ({todo, fetchTodos}) => {
 
     const updateTodo = async (e, id) => {
         const newCompleted = !isCompleted;
-      setIsCompleted(newCompleted);
-      try {
-            let response = await fetch(`https://express-todo-mway.onrender.com/api/todos/${id}`, {
-                method: 'PUT',
-                headers: {
-                    "Authorization": `Bearer ${window.localStorage.accesstoken}`,
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ is_completed: newCompleted })
-            });
+        setIsCompleted(newCompleted);
+        try {
+            let response = await sendRequest(`/api/todos/${id}`, 'PUT', true, JSON.stringify({ is_completed: newCompleted }));
             if (!response.ok) {
-                if (response.status === 401) {
-                    navigate("/login");
-                }
-                if (response.status === 400) {
-                    // setErrors([{msg: resJson.error}]);
-                }
-                return;
+                setIsCompleted(!newCompleted);
             } else {
                 fetchTodos();
             }
         } catch (err) {
             console.log(err);
         }
-  }
+    }
+
     return (
         <li className={isCompleted?'completed':''}>
             <div className="form-check">
