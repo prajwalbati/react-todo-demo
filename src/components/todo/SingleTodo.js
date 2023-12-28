@@ -2,14 +2,14 @@ import React, {useState} from "react";
 
 import sendRequest from "../../utils/fetchRequest";
 
-const SingleTodo = ({todo, fetchTodos}) => {
+const SingleTodo = ({todo, dispatch}) => {
     const [isCompleted, setIsCompleted] = useState(todo.is_completed);
 
     const deleteTodo = async (id) => {
         try {
             let response = await sendRequest(`/api/todos/${id}`, 'DELETE', true);
             if (response.ok) {
-                fetchTodos();
+                dispatch({ type: 'deleteTodo', payload: { _id: id } });
             }
         } catch (err) {
             console.log(err);
@@ -24,7 +24,7 @@ const SingleTodo = ({todo, fetchTodos}) => {
             if (!response.ok) {
                 setIsCompleted(!newCompleted);
             } else {
-                fetchTodos();
+                dispatch({ type: 'updateTodo', payload: { _id: id, is_completed: newCompleted } });
             }
         } catch (err) {
             console.log(err);

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import sendRequest from '../../utils/fetchRequest';
 import Errors from '../Errors';
 
-const AddTodo = ({ fetchTodos }) => {
+const AddTodo = ({ addDispatch }) => {
     const [todo, setTodo] = useState('');
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState([]);
@@ -14,15 +14,15 @@ const AddTodo = ({ fetchTodos }) => {
         setLoading(true);
         try {
             let response = await sendRequest('/api/todos/create', 'POST', true, JSON.stringify({title: todo}));
+            let resJson = await response.json();
             if (!response.ok) {
                 if (response.status === 422) {
-                    let resJson = await response.json();
                     setErrors(resJson);
                 }
             } else {
                 setTodo('');
                 setLoading(false);
-                fetchTodos();
+                addDispatch({type: 'addTodo', payload: resJson})
             }
         } catch (err) {
             console.log(err);
