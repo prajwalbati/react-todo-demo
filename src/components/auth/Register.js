@@ -26,6 +26,7 @@ const Register = () => {
             let response = await sendRequest('/api/auth/register', 'POST', false, JSON.stringify(newUser));
             let resJson = await response.json();
             setErrors([]);
+            setLoading(false);
             if (!response.ok) {
                 if (response.status === 422) {
                     setErrors(resJson);
@@ -35,7 +36,7 @@ const Register = () => {
             }
         } catch (error) {
             console.error(error);
-            setErrors([ {msg: 'SomeThing went wrong.'} ]);
+            setErrors([{ msg: 'SomeThing went wrong.' }]);
             setLoading(false);
         }
     };
@@ -66,7 +67,7 @@ const Register = () => {
 
                 <div className="row form-group">
                     <div className="col-sm-8 offset-sm-4">
-                        <button type="submit" className="btn btn-primary" disabled={loading?true:false}>{ loading ? 'Registering User' : 'Register User' }</button>
+                        <button type="submit" className="btn btn-primary" disabled={loading?'disabled':''}>{ loading ? 'Registering User' : 'Register User' }</button>
                         <span> OR </span>
                         <Link to="/login">Already have an Account?</Link>
                     </div>

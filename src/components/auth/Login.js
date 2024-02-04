@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 
 import sendRequest from '../../utils/fetchRequest';
 import Errors from '../Errors';
+import ProfileContext from '../../contexts/ProfileContext';
 
 const Login = () => {
     const navigate = useNavigate();
+    const {profile, setProfile} = useContext(ProfileContext);
     const [credentials, setCredentials] = useState({
         email: '',
         password: ''
@@ -34,18 +36,26 @@ const Login = () => {
                 }
                 setLoading(false);
             } else {
+                setLoading(false);
+                setProfile({ email: credentials.email });
+
                 let session = resJson.data;
                 window.localStorage.setItem('accesstoken', session.access_token);
                 window.localStorage.setItem('refreshtoken', session.refresh_token);
                 window.localStorage.setItem('expiresin', session.expires_in);
-                navigate('/');
             }
         } catch (error) {
             console.error(error);
-            setErrors([ {msg: 'SomeThing went wrong.'} ]);
+            setErrors([{ msg: 'SomeThing went wrong.' }]);
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        if (profile && profile.email) {
+            navigate('/');
+        }
+    }, [profile, navigate])
 
     return (
         <div className="card-body">

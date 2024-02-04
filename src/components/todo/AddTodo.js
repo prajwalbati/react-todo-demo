@@ -22,7 +22,7 @@ const AddTodo = ({ addDispatch }) => {
             } else {
                 setTodo('');
                 setLoading(false);
-                addDispatch({type: 'addTodo', payload: resJson})
+                addDispatch({type: 'addTodo', payload: resJson.data})
             }
         } catch (err) {
             console.log(err);

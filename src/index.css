@@ -403,16 +403,6 @@ input[type="checkbox"] {
   margin-left: auto !important
 }
 
-.mdi-close-circle-outline:before {
-  content: "\F15A"
-}
-
-.list-wrapper ul li {
-  font-size: .9375rem;
-  padding: .4rem 0;
-  border-bottom: 1px solid #f3f3f3
-}
-
 .mdi:before {
   font-family: FontAwesome;
   content: "\f00d";
@@ -421,6 +411,20 @@ input[type="checkbox"] {
   vertical-align: middle;
   font-size: .756em;
   color: #405189
+}
+
+.mdi-close-circle-outline:before {
+  content: "\f00d"
+}
+
+.mdi-logout:before {
+  content: "\f08b"
+}
+
+.list-wrapper ul li {
+  font-size: .9375rem;
+  padding: .4rem 0;
+  border-bottom: 1px solid #f3f3f3
 }
 
 .list-wrapper ul {

@@ -5,9 +5,13 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import ProfileContextProvider from './contexts/ProfileContextProvider';
+
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <ProfileContextProvider>
+      <App />
+    </ProfileContextProvider>
   </BrowserRouter>,
   document.getElementById('root'),
 );
