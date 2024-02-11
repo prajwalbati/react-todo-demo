@@ -23,6 +23,7 @@ const App = () => {
     </div>
   );
 }
+
 export default App;
 
 function Layout() {
@@ -31,10 +32,10 @@ function Layout() {
   const { profile, setProfile } = useContext(ProfileContext);
 
   const logout = () => {
-    setProfile(null);
     window.localStorage.removeItem('accesstoken');
     window.localStorage.removeItem('refreshtoken');
     window.localStorage.removeItem('expiresin');
+    setProfile(null);
   };
 
   useEffect(() => {
@@ -51,13 +52,13 @@ function Layout() {
               Log out <i className="logout mdi mdi-logout" aria-hidden="true"></i>
             </button>
           }
-            <div className="row container d-flex justify-content-center">
-              <div className="col-md-12">
-                  <h1 className="text-center">Todo Application</h1>
-                  <Outlet />
-                </div>
-            </div>
-        </div>
+          <div className="row container d-flex justify-content-center">
+            <div className="col-md-12">
+                <h1 className="text-center">Todo Application</h1>
+                <Outlet />
+              </div>
+          </div>
+      </div>
     </div>
   );
 }

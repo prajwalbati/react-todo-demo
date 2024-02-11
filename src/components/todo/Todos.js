@@ -1,5 +1,4 @@
-import React, { useEffect, useCallback, useReducer } from 'react';
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useReducer} from 'react';
 
 import { initialTodo, todoReducer } from '../../reducers/todoReducer';
 import sendRequest from '../../utils/fetchRequest';
@@ -7,24 +6,21 @@ import AddTodo from './AddTodo';
 import TodoList from './TodoList';
 
 const Todo = () => {
-    const navigate = useNavigate();
     const [state, dispatch] = useReducer(todoReducer, initialTodo);
     const { loading, todos } = state;
 
-    const getTodos = useCallback(async () => {
-        try {
-            let response = await sendRequest('/api/todos', 'GET', true);
-            let resJson = await response.json();
-            dispatch({ type: 'initialLoad', payload: resJson.data });
-        } catch (err) {
-            console.log(err);
-            navigate("/login");
-        }
-    }, [navigate]);
-
     useEffect(() => {
+        const getTodos = async () => {
+            try {
+                let response = await sendRequest('/api/todos', 'GET', true);
+                let resJson = await response.json();
+                dispatch({ type: 'initialLoad', payload: resJson.data });
+            } catch (err) {
+                console.log(err);
+            }
+        };
         getTodos();
-    }, [getTodos]);
+    }, []);
 
     return (
         <div className="card-body">
