@@ -21,7 +21,7 @@ const sendRequest = async (url, method, needAuth, data) => {
             return response;
         }
     } catch (err) {
-        return err;
+        throw new Error(err);
     }
 };
 

@@ -4,14 +4,15 @@ import sendRequest from "../../utils/fetchRequest";
 
 const SingleTodo = ({todo, dispatch}) => {
     const [isCompleted, setIsCompleted] = useState(todo.is_completed);
+    const [disabled, setDisabled] = useState(false);
 
     const deleteTodo = async (id) => {
+        setDisabled(true);
         try {
-            let response = await sendRequest(`/api/todos/${id}`, 'DELETE', true);
-            if (response.ok) {
-                dispatch({ type: 'deleteTodo', payload: { _id: id } });
-            }
+            await sendRequest(`/api/todos/${id}`, 'DELETE', true);
+            dispatch({ type: 'deleteTodo', payload: { _id: id } });
         } catch (err) {
+            setDisabled(false);
             console.log(err);
         }
     };
@@ -20,14 +21,11 @@ const SingleTodo = ({todo, dispatch}) => {
         const newCompleted = !isCompleted;
         setIsCompleted(newCompleted);
         try {
-            let response = await sendRequest(`/api/todos/${id}`, 'PUT', true, JSON.stringify({ is_completed: newCompleted }));
-            if (!response.ok) {
-                setIsCompleted(!newCompleted);
-            } else {
-                dispatch({ type: 'updateTodo', payload: { _id: id, is_completed: newCompleted } });
-            }
+            await sendRequest(`/api/todos/${id}`, 'PUT', true, JSON.stringify({ is_completed: newCompleted }));
+            dispatch({ type: 'updateTodo', payload: { _id: id, is_completed: newCompleted } });
         } catch (err) {
             console.log(err);
+            setIsCompleted(!newCompleted);
         }
     }
 
@@ -38,7 +36,7 @@ const SingleTodo = ({todo, dispatch}) => {
                     <input className="checkbox" type="checkbox" onChange={(e) => updateTodo(e, todo._id)} checked={isCompleted ? true : false} /> {todo.title} <i className="input-helper"></i>
                 </label>
             </div>
-            <i className="remove mdi mdi-close-circle-outline" onClick={() => deleteTodo(todo._id)}></i>
+            <button className="remove" onClick={() => deleteTodo(todo._id)} disabled={disabled}><i className="mdi mdi-close-circle-outline"></i></button>
         </li>
     );
 };
