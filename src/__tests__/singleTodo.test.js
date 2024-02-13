@@ -4,6 +4,8 @@ import userEvent from '@testing-library/user-event';
 import SingleTodo from "../components/todo/SingleTodo";
 import * as sendRequest from '../utils/fetchRequest';
 
+jest.mock('../utils/fetchRequest');
+
 const mockTodoData = {
     _id: "wweee",
     title: "New todo",
@@ -182,6 +184,7 @@ test("Delete button should be enabled if error occured after clicking delete", a
         title: "Removed Todo",
         is_completed: true
     };
+
     jest.spyOn(sendRequest, 'default')
         .mockImplementation(async () => {
             throw new Error("error");

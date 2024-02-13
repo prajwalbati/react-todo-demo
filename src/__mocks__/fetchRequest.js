@@ -1,0 +1,1 @@
+export const sendRequest = jest.fn(() => Promise.resolve('mocked data'));

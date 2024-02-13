@@ -27,6 +27,7 @@ const Login = () => {
             let response = await sendRequest('/api/auth/login', 'POST', false, JSON.stringify(credentials));
             let resJson = await response.json();
             setErrors([]);
+            setLoading(false);
             if (!response.ok) {
                 if (response.status === 422) {
                     setErrors(resJson);
@@ -34,18 +35,15 @@ const Login = () => {
                 if (response.status === 400) {
                     setErrors([{msg: resJson.error}]);
                 }
-                setLoading(false);
             } else {
-                setLoading(false);
-                setProfile({ email: credentials.email });
-
                 let session = resJson.data;
                 window.localStorage.setItem('accesstoken', session.access_token);
                 window.localStorage.setItem('refreshtoken', session.refresh_token);
                 window.localStorage.setItem('expiresin', session.expires_in);
+
+                setProfile({ email: credentials.email });
             }
         } catch (error) {
-            console.error(error);
             setErrors([{ msg: 'SomeThing went wrong.' }]);
             setLoading(false);
         }
@@ -59,7 +57,7 @@ const Login = () => {
 
     return (
         <div className="card-body">
-            <h4 className="card-title">Login</h4>
+            <h2 className="card-title">Login</h2>
             <form onSubmit={loginUser}>
                 <Errors errors={errors}></Errors>
                 <div className="row form-group">
@@ -72,6 +70,7 @@ const Login = () => {
                     <label className="col-sm-4 control-label">Password *</label>
                     <div className="col-sm-8">
                         <input name="password" value={credentials.password} onChange={onChangeHandler} type="password" className="form-control" placeholder='Password' required />
+                        <Link className="forgotPassword" to="/forgot-password"><small>Forgot Password?</small></Link>
                     </div>
                 </div>
 
@@ -79,7 +78,7 @@ const Login = () => {
                     <div className="col-sm-8 offset-sm-4">
                         <button type="submit" className="btn btn-primary" disabled={loading?true:false}>{ loading ? 'Logging In' : 'Login' }</button>
                         <span> OR </span>
-                        <Link to="/register">Create an Account</Link>
+                        <Link className="createAccount" to="/register">Create an Account</Link>
                     </div>
                 </div>
             </form>
