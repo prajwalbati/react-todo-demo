@@ -383,7 +383,7 @@ input[type="checkbox"] {
 }
 
 .text-primary,
-.list-wrapper .completed .remove {
+.list-wrapper .remove {
   color: #405189 !important
 }
 

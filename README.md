@@ -1,4 +1,4 @@
-# React Todo application
+# Todo Frontend Application using ReactJS
 
 Todo application deployed using Create React Application.
 
@@ -10,4 +10,4 @@ It uses API from `https://express-todo-mway.onrender.com`.
 
 Swagger: `https://express-todo-mway.onrender.com/api-docs/`
 
-Github URL for API: `https://github.com/prajwalbati/express-todo`
+Github URL for API: `https://github.com/prajwalbati/todo-backend`

@@ -16,6 +16,11 @@ const Layout = () => {
         window.localStorage.removeItem('expiresin');
         setProfile(null);
     };
+    useEffect(() => {
+        // TODO
+        // check for token in local storage and update profile
+        console.log("here it comes");
+    }, []);
 
     useEffect(() => {
         if (!profile && pathname === "/") {

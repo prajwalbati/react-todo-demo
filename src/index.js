@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
@@ -7,13 +7,14 @@ import * as serviceWorker from './serviceWorker';
 
 import ProfileContextProvider from './contexts/ProfileContextProvider';
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = ReactDOM.createRoot(container);
+root.render(
   <BrowserRouter>
     <ProfileContextProvider>
       <App />
     </ProfileContextProvider>
-  </BrowserRouter>,
-  document.getElementById('root'),
+  </BrowserRouter>
 );
 
 // If you want your app to work offline and load faster, you can change

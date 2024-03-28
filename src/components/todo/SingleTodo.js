@@ -36,7 +36,7 @@ const SingleTodo = ({todo, dispatch}) => {
                     <input className="checkbox" type="checkbox" onChange={(e) => updateTodo(e, todo._id)} checked={isCompleted ? true : false} /> {todo.title} <i className="input-helper"></i>
                 </label>
             </div>
-            <button className="remove" onClick={() => deleteTodo(todo._id)} disabled={disabled}><i className="mdi mdi-close-circle-outline"></i></button>
+            <button className="remove btn btn-link" onClick={() => deleteTodo(todo._id)} disabled={disabled}><i className="fa fa-times"></i></button>
         </li>
     );
 };
